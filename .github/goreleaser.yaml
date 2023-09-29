@@ -1,0 +1,81 @@
+project_name: kubectl-tekton
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/tekton.go
+    binary: tekton
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+#      - windows
+#      - darwin
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .Binary }}-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+    files:
+      - README.md
+      - LICENSE*
+
+checksum:
+  disable: true
+  name_template: "{{ .ProjectName }}-{{ .Version }}-checksums.txt"
+  algorithm: sha256
+
+changelog:
+  sort: asc
+  use: github
+  filters:
+    exclude:
+      - Merge conflict
+      - Merge pull request
+      - Merge remote-tracking branch
+      - Merge branch
+  groups:
+    - title: "New Features"
+      regexp: '^.*?feat(\([[:word:]]+\))??!?:.+$'
+      order: 1
+    - title: "Bug fixes"
+      regexp: '^.*?fix(\([[:word:]]+\))??!?:.+$'
+      order: 2
+    - title: "Documentation updates"
+      regexp: '^.*?doc(\([[:word:]]+\))??!?:.+$'
+      order: 3
+    - title: "Dependency updates"
+      regexp: '^.*?(feat|fix)\(deps\)!?:.+$'
+      order: 4
+    - title: "Other updates"
+      order: 100
+
+release:
+  name_template: "v{{ .Version }}"
+
+source:
+  enabled: false
+
+krews:
+  - name: tekton
+    url_template: "https://github.com/{{ .Env.GITHUB_REPOSITORY }}/releases/download/{{ .Tag }}/{{ .ArtifactName }}"
+    commit_author:
+      name: Sayan Biswas
+      email: sayan-biswas@live.com
+    commit_msg_template: "Krew plugin update for {{ .ProjectName }} version {{ .Tag }}"
+    homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY }}"
+    description: "Kubectl plugin to query tekton resources"
+    short_description: "Kubectl plugin to query tekton resources"
+    caveats: "kubectl tekton config"
+    skip_upload: false
+    repository:
+      owner: "{{ .Env.GITHUB_OWNER }}"
+      name: "{{ .Env.GITHUB_REPOSITORY_NAME }}"
+      branch: "{{ .Branch }}"
