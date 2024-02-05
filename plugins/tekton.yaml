@@ -4,22 +4,36 @@ kind: Plugin
 metadata:
   name: tekton
 spec:
-  version: v0.1.0
+  version: v0.1.1
   platforms:
-    - bin: tekton.exe
-      uri: https://github.com/sayan-biswas/kubectl-tekton/releases/v0.1.0/tekton-0.1.0-windows-arm64.zip
-      sha256: d36e97a8aa9ade5d2ad8e803f5146d813a0a55d9e67c47f5bfd5c17889f9034a
-      selector:
-        matchLabels:
-          os: windows
-          arch: arm64
     - bin: tekton
-      uri: https://github.com/sayan-biswas/kubectl-tekton/releases/v0.1.0/tekton-0.1.0-linux-arm64.tar.gz
-      sha256: b45b559b8e30b7ba57fbae1bc54b6cf9912233081fb11b890addf0b13fb6e2b2
+      uri: https://github.com/sayan-biswas/test-release/releases/downloads/v0.1.1/tekton-0.1.1-linux-arm64.tar.gz
+      sha256: 74c35b2619fd7ddc1c76c0e0cde4684ccb6908b48a951a2eff9d7cf76cd8eb25
       selector:
         matchLabels:
           os: linux
           arch: arm64
+    - bin: tekton
+      uri: https://github.com/sayan-biswas/test-release/releases/downloads/v0.1.1/tekton-0.1.1-linux-amd64.tar.gz
+      sha256: cfffc4813104d1d77796960ee03416204238a9ae28c73cfdb0cc607ce9bcc927
+      selector:
+        matchLabels:
+          os: linux
+          arch: amd64
+    - bin: tekton
+      uri: https://github.com/sayan-biswas/test-release/releases/downloads/v0.1.1/tekton-0.1.1-darwin-arm64.tar.gz
+      sha256: faed1402efb5f30d18d1c0bb002b5a250363efac1964e39b8bd4fe94bde6ffe2
+      selector:
+        matchLabels:
+          os: darwin
+          arch: arm64
+    - bin: tekton
+      uri: https://github.com/sayan-biswas/test-release/releases/downloads/v0.1.1/tekton-0.1.1-darwin-amd64.tar.gz
+      sha256: cad4ed253847a3f0e5ff05b44edcf2b9e1e8c19f5452b210b39c3a4de4438933
+      selector:
+        matchLabels:
+          os: darwin
+          arch: amd64
   shortDescription: Kubectl plugin to query tekton resources
   homepage: https://github.com/sayan-biswas/test-release
   caveats: kubectl tekton config
